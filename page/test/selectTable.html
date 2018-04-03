@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>联动下拉数据表格选择</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../layui/css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md4">
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Name"  id ="Name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Sex"  id ="Sex" lay-verify="title" autocomplete="off" placeholder="请输入性别" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            <div class="layui-form-item">
+                <label class="layui-form-label">职业</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Classify"  id ="Classify" lay-verify="title" autocomplete="off" placeholder="请输入职业" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../../layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.config({
+        base: '/layui-v2.2.5/js/'      //自定义layui组件的目录
+    }).extend({
+        common:'plugin',
+    });
+    layui.use(['form', 'layedit', 'laydate','plugin'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,plugin=layui.plugin;
+        //初始化下拉数据表格
+        plugin.seTable({
+            elm:"#Name",//初始化的dom
+            elm_data:"username",//初始化dom的值
+            elmval:"NameID",//提交项
+            elmval_data:"NameID",//提交表单value
+            url:"../../json/userinfo.json",//数据源
+            cols:[[
+                {field:'id',type: 'checkbox',fixed: 'left',width:30}
+                ,{field:'username', title:'用户姓名',align:'center'}
+                ,{field:'city', title:'城市'}
+                ,{field:'classify', title:'职业'}
+                ]],//要显示的数据列
+            search:true,//是否开启搜索
+            related:true,//是否开启关联
+            relateds:[//关联元素集
+                {
+                    cs:"#Sex",//关联的元素选择
+                    cs_data:"sex",//填充的值
+                  /*  val:"sex",//如果val为空则直接填充当前class值,不为空则追加一个隐藏域
+                    val_data:"AreaID"//填充的值*/
+                },
+                {
+                    cs:"#Classify",//关联的元素选择
+                    cs_data:"classify",//填充的值
+                    val:"ClassifyID",//如果val为空则直接填充当前class值,不为空则追加一个隐藏域
+                    val_data:"experience"//填充的值
+                }
+            ]
+        })
+
+
+
+    });
+</script>
+
+</body>
+</html>
