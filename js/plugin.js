@@ -93,7 +93,15 @@ layui.define(['jquery','table'], function(exports) {
                 }
                 $(".select-table-box").slideUp();
             });
-
+             $(document).on("click",function(){//点击页面其他地方隐藏
+                $(".select-table-box").slideUp();
+            });
+            $(".select-table-box>div").on("click",function(event){//阻止事件冒泡
+                event.stopPropagation();
+            });
+            $(opt.elm).on("click",function(event){//防止点击input隐藏
+                event.stopPropagation();
+            });
             $Aid.dblclick(function(event){
                 var checkStatus = table.checkStatus('Aid')
                 console.log(checkStatus.data);
